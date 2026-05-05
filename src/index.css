@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Stripe-inspired design system. Sve boje su HSL. */
+@layer base {
+  :root {
+    /* Surface */
+    --background: 0 0% 100%;
+    --foreground: 211 79% 11%;          /* #061b31 deep navy */
+
+    --card: 0 0% 100%;
+    --card-foreground: 211 79% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 211 79% 11%;
+
+    /* Stripe purple */
+    --primary: 247 98% 61%;             /* #533afd */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 247 65% 52%;       /* #4434d4 */
+    --primary-deep: 243 53% 36%;        /* #2e2b8c */
+    --primary-soft: 240 88% 85%;        /* #b9b9f9 */
+
+    /* Neutrals */
+    --secondary: 212 41% 96%;           /* #f3f7fb */
+    --secondary-foreground: 211 79% 11%;
+
+    --muted: 212 41% 96%;
+    --muted-foreground: 217 16% 47%;    /* #64748d body */
+
+    --accent: 240 100% 97%;             /* very pale lavender */
+    --accent-foreground: 247 98% 45%;
+
+    --label: 214 35% 24%;               /* #273951 form labels */
+
+    /* Status */
+    --destructive: 341 84% 53%;         /* #ea2261 ruby */
+    --destructive-foreground: 0 0% 100%;
+    --success: 140 79% 41%;             /* #15be53 */
+    --success-foreground: 140 60% 30%;  /* #108c3d text */
+    --warning: 32 56% 39%;              /* #9b6829 lemon */
+    --warning-foreground: 0 0% 100%;
+    --info: 247 98% 61%;
+    --info-foreground: 0 0% 100%;
+
+    /* Brand dark */
+    --brand-dark: 238 49% 22%;          /* #1c1e54 */
+    --brand-darkest: 211 86% 14%;       /* #0d253d */
+
+    /* Borders & inputs */
+    --border: 212 41% 93%;              /* #e5edf5 */
+    --input: 212 41% 93%;
+    --ring: 247 98% 61%;
+
+    --radius: 0.375rem;                 /* 6px — Stripe je konzervativan */
+
+    /* Sidebar — bijela varijanta */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 211 79% 11%;
+    --sidebar-primary: 247 98% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 100% 97%;
+    --sidebar-accent-foreground: 247 98% 45%;
+    --sidebar-border: 212 41% 93%;
+    --sidebar-ring: 247 98% 61%;
+
+    /* Stripe-ova plavičasta sjenka — KARAKTERISTIKA brenda */
+    --shadow-sm: 0 3px 6px rgba(23,23,23,0.06);
+    --shadow-md: 0 15px 35px rgba(23,23,23,0.08);
+    --shadow-lg: rgba(50,50,93,0.18) 0px 30px 45px -30px, rgba(0,0,0,0.08) 0px 18px 36px -18px;
+    --shadow-xl: rgba(3,3,39,0.25) 0px 14px 21px -14px, rgba(0,0,0,0.1) 0px 8px 17px -8px;
+  }
+
+  .dark {
+    --background: 211 86% 8%;
+    --foreground: 0 0% 98%;
+    --card: 238 49% 14%;
+    --card-foreground: 0 0% 98%;
+    --popover: 238 49% 14%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 247 98% 68%;
+    --primary-foreground: 211 86% 10%;
+    --primary-hover: 247 80% 60%;
+    --primary-deep: 243 53% 36%;
+    --primary-soft: 240 88% 75%;
+    --secondary: 238 49% 18%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 238 49% 18%;
+    --muted-foreground: 217 20% 70%;
+    --accent: 238 49% 22%;
+    --accent-foreground: 0 0% 98%;
+    --label: 217 20% 80%;
+    --destructive: 341 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 140 70% 50%;
+    --success-foreground: 0 0% 98%;
+    --warning: 32 70% 60%;
+    --warning-foreground: 211 86% 10%;
+    --info: 247 98% 68%;
+    --info-foreground: 0 0% 98%;
+    --brand-dark: 238 49% 14%;
+    --brand-darkest: 211 86% 6%;
+    --border: 238 49% 22%;
+    --input: 238 49% 22%;
+    --ring: 247 98% 68%;
+    --sidebar-background: 238 49% 10%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 247 98% 68%;
+    --sidebar-primary-foreground: 211 86% 10%;
+    --sidebar-accent: 238 49% 16%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 238 49% 18%;
+    --sidebar-ring: 247 98% 68%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Stripe — light weight kao identitet */
+  h1, h2, h3, h4 {
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+  }
+  h1 { letter-spacing: -0.03em; }
+  /* Tabularne brojke za finansijske podatke */
+  .tnum, table, [data-tnum] { font-feature-settings: "tnum", "ss01"; font-variant-numeric: tabular-nums; }
+  code, pre, .font-mono {
+    font-family: 'Source Code Pro', SFMono-Regular, Menlo, Monaco, monospace;
+    font-feature-settings: normal;
+  }
+}
+
+@layer utilities {
+  .shadow-stripe { box-shadow: var(--shadow-lg); }
+  .shadow-stripe-md { box-shadow: var(--shadow-md); }
+  .shadow-stripe-sm { box-shadow: var(--shadow-sm); }
+  .shadow-stripe-xl { box-shadow: var(--shadow-xl); }
+  .text-label { color: hsl(var(--label)); }
+  .bg-brand-dark { background-color: hsl(var(--brand-dark)); }
+}
