@@ -139,10 +139,10 @@ export default function Login() {
         {mfaRequired ? (
           <div className="w-full max-w-sm space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
             <div className="lg:hidden flex items-center gap-3">
-              <Logo size="md" className="h-10 rounded-[8px]" />
+              <Logo size="lg" className="h-14 w-auto rounded-[10px]" />
               <div>
-                <div className="text-lg font-medium leading-none">NUMA ERP</div>
-                <div className="text-xs text-muted-foreground mt-1">Interni sistem</div>
+                <div className="text-xl font-medium leading-none tracking-tight">NUMA ERP</div>
+                <div className="text-sm text-muted-foreground mt-1.5">Interni sistem</div>
               </div>
             </div>
 
@@ -212,10 +212,10 @@ export default function Login() {
         ) : (
           <div className="w-full max-w-sm space-y-8 animate-in fade-in duration-300">
             <div className="lg:hidden flex items-center gap-3">
-              <Logo size="md" className="h-10 rounded-[8px]" />
+              <Logo size="lg" className="h-14 w-auto rounded-[10px]" />
               <div>
-                <div className="text-lg font-medium leading-none">NUMA ERP</div>
-                <div className="text-xs text-muted-foreground mt-1">Interni sistem</div>
+                <div className="text-xl font-medium leading-none tracking-tight">NUMA ERP</div>
+                <div className="text-sm text-muted-foreground mt-1.5">Interni sistem</div>
               </div>
             </div>
 
