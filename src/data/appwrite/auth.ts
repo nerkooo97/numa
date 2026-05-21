@@ -46,3 +46,59 @@ export async function appwriteChangePassword(newPassword: string, oldPassword: s
   const { account } = getAppwrite();
   return account.updatePassword(newPassword, oldPassword);
 }
+
+export async function appwriteChangeName(newName: string) {
+  const { account } = getAppwrite();
+  return account.updateName(newName);
+}
+
+export async function appwriteListMfaFactors() {
+  const { account } = getAppwrite();
+  return account.listMfaFactors();
+}
+
+export async function appwriteCreateMfaAuthenticator() {
+  const { account } = getAppwrite();
+  return account.createMfaAuthenticator({ type: "totp" });
+}
+
+export async function appwriteVerifyMfaAuthenticator(otp: string) {
+  const { account } = getAppwrite();
+  return account.updateMfaAuthenticator({ type: "totp", otp });
+}
+
+export async function appwriteDeleteMfaAuthenticator() {
+  const { account } = getAppwrite();
+  return account.deleteMFAAuthenticator({ type: "totp" });
+}
+
+export async function appwriteUpdateMFA(enabled: boolean) {
+  const { account } = getAppwrite();
+  return account.updateMFA({ mfa: enabled });
+}
+
+export async function appwriteCreateMfaRecoveryCodes() {
+  const { account } = getAppwrite();
+  return account.createMfaRecoveryCodes();
+}
+
+export async function appwriteUpdateMfaRecoveryCodes() {
+  const { account } = getAppwrite();
+  return account.updateMfaRecoveryCodes();
+}
+
+export async function appwriteGetMfaRecoveryCodes() {
+  const { account } = getAppwrite();
+  return account.getMfaRecoveryCodes();
+}
+
+export async function appwriteCreateMfaChallenge(factor: "totp" | "recoveryCode") {
+  const { account } = getAppwrite();
+  return account.createMFAChallenge({ factor });
+}
+
+export async function appwriteCompleteMfaChallenge(challengeId: string, otp: string) {
+  const { account } = getAppwrite();
+  return account.updateMFAChallenge({ challengeId, otp });
+}
+

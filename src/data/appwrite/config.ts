@@ -1,7 +1,7 @@
 // Appwrite konfiguracija. Sve ide kroz env varijable, ništa hardkodirano.
 // Aktivira se postavljanjem VITE_DATA_BACKEND=appwrite + Appwrite env vars.
 
-import { Client, Account, Databases, Storage } from "appwrite";
+import { Client, Account, Databases, Storage, Avatars } from "appwrite";
 
 export interface AppwriteConfig {
   endpoint: string;
@@ -27,6 +27,7 @@ let _client: Client | null = null;
 let _account: Account | null = null;
 let _databases: Databases | null = null;
 let _storage: Storage | null = null;
+let _avatars: Avatars | null = null;
 let _config: AppwriteConfig | null = null;
 
 export function getAppwrite() {
@@ -36,12 +37,14 @@ export function getAppwrite() {
     _account = new Account(_client);
     _databases = new Databases(_client);
     _storage = new Storage(_client);
+    _avatars = new Avatars(_client);
   }
   return {
     client: _client!,
     account: _account!,
     databases: _databases!,
     storage: _storage!,
+    avatars: _avatars!,
     config: _config!,
   };
 }

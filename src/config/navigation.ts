@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Users, FolderKanban, Clock, Wrench, FileText,
-  Banknote, Wallet, Globe2, BarChart3, Bell, ShieldCheck, History,
+  Banknote, Wallet, BriefcaseBusiness, BarChart3, Bell, ShieldCheck, History, FolderTree, Files, Layers3,
   type LucideIcon,
 } from "lucide-react";
 import type { ComponentType } from "react";
@@ -16,11 +16,17 @@ import EquipmentPage from "@features/equipment/pages/EquipmentPage";
 import ExpensesPage from "@features/expenses/ExpensesPage";
 import CashPage from "@features/cash/CashPage";
 import CashboxPage from "@features/cashbox/CashboxPage";
-import VisasPage from "@features/visas/VisasPage";
+import PermitsPage from "@features/permits/PermitsPage";
+import PermitCategoriesPage from "@features/permits/pages/PermitCategoriesPage";
+import PermitDocumentTypesPage from "@features/permits/pages/PermitDocumentTypesPage";
+import PermitTemplatesPage from "@features/permits/pages/PermitTemplatesPage";
+import PermitTemplateDetailPage from "@features/permits/pages/PermitTemplateDetailPage";
+import PermitCaseDetailPage from "@features/permits/pages/PermitCaseDetailPage";
 import AnalyticsPage from "@features/analytics/AnalyticsPage";
 import NotificationsPage from "@features/notifications/NotificationsPage";
 import UsersPage from "@features/users/UsersPage";
 import AuditLogPage from "@features/audit/AuditLogPage";
+import ProfilePage from "@features/auth/ProfilePage";
 
 
 /**
@@ -54,7 +60,12 @@ export const APP_ROUTES: AppRoute[] = [
   { path: "/sati",          component: HoursPage,           roles: ALL_ROLES },
   { path: "/oprema",        component: EquipmentPage,       roles: ALL_ROLES },
   { path: "/troskovi",      component: ExpensesPage,        roles: ALL_ROLES },
-  { path: "/viziranje",     component: VisasPage,           roles: ALL_ROLES },
+  { path: "/dozvole",       component: PermitsPage,         roles: ALL_ROLES },
+  { path: "/dozvole/kategorije", component: PermitCategoriesPage, roles: ALL_ROLES },
+  { path: "/dozvole/tipovi-dokumenata", component: PermitDocumentTypesPage, roles: ALL_ROLES },
+  { path: "/dozvole/checkliste", component: PermitTemplatesPage, roles: ALL_ROLES },
+  { path: "/dozvole/checkliste/:id", component: PermitTemplateDetailPage, roles: ALL_ROLES },
+  { path: "/dozvole/predmeti/:id", component: PermitCaseDetailPage, roles: ALL_ROLES },
   { path: "/analitika",     component: AnalyticsPage,       roles: ALL_ROLES },
   { path: "/notifikacije",  component: NotificationsPage,   roles: ALL_ROLES },
 
@@ -62,11 +73,12 @@ export const APP_ROUTES: AppRoute[] = [
   { path: "/kasa",          component: CashboxPage,         roles: ADMIN_ONLY },
   { path: "/korisnici",     component: UsersPage,           roles: ADMIN_ONLY },
   { path: "/aktivnosti",    component: AuditLogPage,        roles: ADMIN_ONLY },
+  { path: "/profil",        component: ProfilePage,         roles: ALL_ROLES },
   
 ];
 
 // ---------- SIDEBAR / COMMAND PALETTE ----------
-export type NavGroup = "operativa" | "finansije" | "ostalo";
+export type NavGroup = "operativa" | "finansije" | "dozvole" | "ostalo";
 
 export interface NavItem {
   title: string;            // prikazano ime
@@ -89,8 +101,13 @@ export const NAV_ITEMS: NavItem[] = [
   { title: "Keš isplate", url: "/kes",     icon: Banknote, group: "finansije", roles: ADMIN_ONLY },
   { title: "Kasa",       url: "/kasa",     icon: Wallet,   group: "finansije", roles: ADMIN_ONLY },
 
+  // Dozvole
+  { title: "Pregled",            url: "/dozvole",                  icon: BriefcaseBusiness, group: "dozvole", roles: ALL_ROLES },
+  { title: "Kategorije",         url: "/dozvole/kategorije",       icon: FolderTree,        group: "dozvole", roles: ALL_ROLES },
+  { title: "Tipovi dokumenata",  url: "/dozvole/tipovi-dokumenata",icon: Files,             group: "dozvole", roles: ALL_ROLES },
+  { title: "Checkliste",         url: "/dozvole/checkliste",       icon: Layers3,           group: "dozvole", roles: ALL_ROLES },
+
   // Ostalo
-  { title: "Viziranje",    url: "/viziranje",    icon: Globe2,      group: "ostalo", roles: ALL_ROLES },
   { title: "Analitika",    url: "/analitika",    icon: BarChart3,   group: "ostalo", roles: ALL_ROLES },
   { title: "Notifikacije", url: "/notifikacije", icon: Bell,        group: "ostalo", roles: ALL_ROLES },
   { title: "Korisnici",    url: "/korisnici",    icon: ShieldCheck, group: "ostalo", roles: ADMIN_ONLY },
@@ -101,6 +118,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const NAV_GROUP_LABELS: Record<NavGroup, string> = {
   operativa: "Operativa",
   finansije: "Finansije",
+  dozvole: "Dozvole",
   ostalo: "Ostalo",
 };
 

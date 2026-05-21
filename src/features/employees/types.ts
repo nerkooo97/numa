@@ -19,8 +19,6 @@ export interface Employee {
 export type DocKind =
   | "ljekarski"
   | "zastita_na_radu"
-  | "radna_dozvola"
-  | "boravisna_dozvola"
   | "pasos"
   | "ugovor"
   | "ostalo";

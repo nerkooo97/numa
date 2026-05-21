@@ -218,7 +218,11 @@ Sidebar.displayName = "Sidebar";
 
 const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.ComponentProps<typeof Button>>(
   ({ className, onClick, ...props }, ref) => {
-    const { toggleSidebar, isMobile } = useSidebar();
+    const { toggleSidebar, isMobile, state } = useSidebar();
+
+    if (!isMobile && state === "expanded") {
+      return null;
+    }
 
     return (
       <Button

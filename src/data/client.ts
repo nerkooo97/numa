@@ -25,7 +25,9 @@ export interface FileStore {
 import type {
   User, Employee, EmployeeDocument, Project, ProjectDocument, Phase, PhaseAssignment,
   HourEntry, EquipmentAssignment, EquipmentItem, EquipmentCategory, Expense, CashPayment, CashJustification, CashboxEntry,
-  AuditLog, Notification, VisaAttachment, PhaseChecklistItem, ProjectInvoice, ProjectPhoto,
+  AuditLog, Notification, PhaseChecklistItem, ProjectInvoice, ProjectPhoto,
+  PermitCategory, PermitDocumentType, PermitChecklistTemplate, PermitChecklistTemplateItem, PermitCase, PermitCaseItem,
+  PermitDocument, PermitDocumentEmployee, PermitCaseItemDocument,
 } from "./types";
 
 export interface DataClient {
@@ -46,7 +48,15 @@ export interface DataClient {
   cashbox: Repo<CashboxEntry>;
   audit: Repo<AuditLog>;
   notifications: Repo<Notification>;
-  visaAttachments: Repo<VisaAttachment>;
+  permitCategories: Repo<PermitCategory>;
+  permitDocumentTypes: Repo<PermitDocumentType>;
+  permitChecklistTemplates: Repo<PermitChecklistTemplate>;
+  permitChecklistTemplateItems: Repo<PermitChecklistTemplateItem>;
+  permitCases: Repo<PermitCase>;
+  permitCaseItems: Repo<PermitCaseItem>;
+  permitDocuments: Repo<PermitDocument>;
+  permitDocumentEmployees: Repo<PermitDocumentEmployee>;
+  permitCaseItemDocuments: Repo<PermitCaseItemDocument>;
   phaseChecklist: Repo<PhaseChecklistItem>;
   invoices: Repo<ProjectInvoice>;
   photos: Repo<ProjectPhoto>;

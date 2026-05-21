@@ -25,8 +25,10 @@ export const uploadPaths = {
 
   employeeDocument: (employeeId: string, kind?: string) =>
     clean(`employees/${employeeId}/documents${kind ? "/" + kind : ""}`),
-  visaAttachment: (employeeId: string, kind: string, slug: string) =>
-    clean(`employees/${employeeId}/visas/${kind}/${slug}`),
+  permitCaseItem: (employeeId: string, categorySlug: string, itemSlug: string) =>
+    clean(`employees/${employeeId}/permits/${categorySlug}/${itemSlug}`),
+  permitDocument: (employeeIds: string[], documentTypeSlug: string) =>
+    clean(`employees/shared-permits/${employeeIds.sort().join("_")}/${documentTypeSlug}`),
 
   expenseReceipt: () => clean(`expenses/receipts`),
   cashJustification: (paymentId: string) => clean(`cash/justifications/${paymentId}`),

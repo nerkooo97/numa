@@ -1,10 +1,14 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { db } from "@/data";
 import type { Role, User } from "@/data/types";
+import { getAppwrite } from "@/data/appwrite/config";
 import {
   appwriteLogin,
   appwriteLogout,
   appwriteCurrentUser,
+  appwriteChangePassword,
+  appwriteChangeName,
+  appwriteCompleteMfaChallenge,
 } from "@/data/appwrite/auth";
 import {
   createUser as adminCreateUser,
@@ -20,6 +24,9 @@ interface AuthState {
   bootstrap(): Promise<void>;
   createUser(input: { email: string; name: string; password: string; role: Role }): Promise<User>;
   changePassword(userId: string, newPassword: string): Promise<void>;
+  updateProfileName(newName: string): Promise<void>;
+  updateProfilePassword(newPassword: string, oldPassword: string): Promise<void>;
+  completeMfaChallenge(challengeId: string, otp: string): Promise<void>;
 }
 
 const Ctx = createContext<AuthState | null>(null);
@@ -65,8 +72,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login: AuthState["login"] = async (email, password) => {
     try { await appwriteLogout(); } catch { /* ignore */ }
     await appwriteLogin(email, password);
-    const acc = await appwriteCurrentUser();
-    if (!acc) throw new Error("Sesija nije uspostavljena.");
+    const { account } = getAppwrite();
+    let acc;
+    try {
+      acc = await account.get();
+    } catch (err: any) {
+      if (err?.type === "user_more_factors_required") {
+        throw err;
+      }
+      throw new Error(err?.message || "Neuspješna prijava.");
+    }
+    const p = await loadProfile(acc as any);
+    setUser({ id: p.id, email: p.email, name: p.name, role: p.role });
+  };
+
+  const completeMfaChallenge: AuthState["completeMfaChallenge"] = async (challengeId, otp) => {
+    await appwriteCompleteMfaChallenge(challengeId, otp);
+    const { account } = getAppwrite();
+    let acc;
+    try {
+      acc = await account.get();
+    } catch (err: any) {
+      throw new Error(err?.message || "Greška pri dohvaćanju profila nakon MFA verifikacije.");
+    }
     const p = await loadProfile(acc as any);
     setUser({ id: p.id, email: p.email, name: p.name, role: p.role });
   };
@@ -89,7 +117,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await adminUpdatePassword(userId, newPassword);
   };
 
-  return <Ctx.Provider value={{ user, loading, login, logout, bootstrap, createUser, changePassword }}>{children}</Ctx.Provider>;
+  const updateProfileName: AuthState["updateProfileName"] = async (newName) => {
+    if (!user) return;
+    await appwriteChangeName(newName);
+    await db.users.update(user.id, { name: newName } as any);
+    setUser((prev) => prev ? { ...prev, name: newName } : null);
+  };
+
+  const updateProfilePassword: AuthState["updateProfilePassword"] = async (newPassword, oldPassword) => {
+    await appwriteChangePassword(newPassword, oldPassword);
+  };
+
+  return <Ctx.Provider value={{ user, loading, login, logout, bootstrap, createUser, changePassword, updateProfileName, updateProfilePassword, completeMfaChallenge }}>{children}</Ctx.Provider>;
 }
 
 export function useAuth() {

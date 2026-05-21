@@ -42,7 +42,15 @@ collection. Collection ID-evi su definisani u
 | cashbox                 | `cashbox`             |
 | audit                   | `audit`               |
 | notifications           | `notifications`       |
-| visaAttachments         | `visa_attachments`    |
+| permitCategories        | `permit_categories`   |
+| permitDocumentTypes     | `permit_document_types` |
+| permitChecklistTemplates| `permit_checklist_templates` |
+| permitChecklistTemplateItems | `permit_checklist_template_items` |
+| permitCases             | `permit_cases`        |
+| permitCaseItems         | `permit_case_items`   |
+| permitDocuments         | `permit_documents`    |
+| permitDocumentEmployees | `permit_document_employees` |
+| permitCaseItemDocuments | `permit_case_item_documents` |
 | phaseChecklist          | `phase_checklist`     |
 | invoices                | `invoices`            |
 | photos                  | `photos`              |
@@ -73,6 +81,15 @@ Preporučeni indexi za performanse i filtere:
 - `cashbox`: index na `date`, `type`
 - `audit`: index na `userId`, `entityType`, `at`
 - `notifications`: index na `read`, `at`
+- `permitCategories`: index na `slug`, `active`
+- `permitDocumentTypes`: index na `slug`, `active`
+- `permitChecklistTemplates`: index na `categoryId`, `active`
+- `permitChecklistTemplateItems`: index na `templateId`, `documentTypeId`, `sortOrder`
+- `permitCases`: index na `employeeId`, `categoryId`, `templateId`, `status`
+- `permitCaseItems`: index na `caseId`, `documentTypeId`, `status`, `sortOrder`
+- `permitDocuments`: index na `documentTypeId`, `sourceKind`, `status`, `expiresAt`
+- `permitDocumentEmployees`: index na `documentId`, `employeeId`
+- `permitCaseItemDocuments`: index na `caseItemId`, `documentId`
 - `invoices`: index na `projectId`, `status`, `date`
 - `photos`: index na `projectId`, `phaseId`, `takenAt`
 

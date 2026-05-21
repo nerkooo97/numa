@@ -4,7 +4,11 @@
 
 export type { ID, Role, User } from "@features/auth/types";
 export type { Employee, EmployeeType, DocKind, EmployeeDocument } from "@features/employees/types";
-export type { VisaKind, VisaAttachment } from "@features/visas/types";
+export type {
+  PermitCategory, PermitDocumentType, PermitChecklistTemplate, PermitChecklistTemplateItem,
+  PermitCase, PermitCaseItem, PermitCaseStatus, PermitItemStatus,
+  PermitDocument, PermitDocumentEmployee, PermitCaseItemDocument, PermitDocumentStatus,
+} from "@features/permits/types";
 export type {
   Project, ProjectDocument, Phase, PhaseAssignment, PhaseChecklistItem,
   ProjectInvoice, ProjectPhoto,
