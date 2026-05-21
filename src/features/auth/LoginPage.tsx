@@ -138,12 +138,8 @@ export default function Login() {
       <main className="flex items-center justify-center p-6 sm:p-10">
         {mfaRequired ? (
           <div className="w-full max-w-sm space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <div className="lg:hidden flex items-center gap-3">
-              <Logo size="lg" className="h-14 w-auto rounded-[10px]" />
-              <div>
-                <div className="text-xl font-medium leading-none tracking-tight">NUMA ERP</div>
-                <div className="text-sm text-muted-foreground mt-1.5">Interni sistem</div>
-              </div>
+            <div className="lg:hidden flex justify-center mb-2">
+              <Logo size="xl" className="h-20 w-auto rounded-[12px]" />
             </div>
 
             <div className="space-y-3">
@@ -211,12 +207,8 @@ export default function Login() {
           </div>
         ) : (
           <div className="w-full max-w-sm space-y-8 animate-in fade-in duration-300">
-            <div className="lg:hidden flex items-center gap-3">
-              <Logo size="lg" className="h-14 w-auto rounded-[10px]" />
-              <div>
-                <div className="text-xl font-medium leading-none tracking-tight">NUMA ERP</div>
-                <div className="text-sm text-muted-foreground mt-1.5">Interni sistem</div>
-              </div>
+            <div className="lg:hidden flex justify-center mb-2">
+              <Logo size="xl" className="h-20 w-auto rounded-[12px]" />
             </div>
 
             <div className="space-y-2">
